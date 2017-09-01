@@ -1,9 +1,10 @@
-import { lessions } from './../shared/models/test-lessions';
-import { Component, OnInit } from '@angular/core';
+import { Lesson } from './../shared/models/lesson';
+import { lessons } from './../shared/models/test-lessons';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { globalEventBus } from 'app/event-bus-experiments/event-bus';
 import {
-  LESSIONS_LIST,
-  ADD_LESSION
+  LESSONS_LIST,
+  ADD_LESSON
 } from '../shared/constants/event-types';
 
 @Component({
@@ -12,16 +13,24 @@ import {
   styleUrls: ['./event-bus-experiments.component.css']
 })
 export class EventBusExperimentsComponent implements OnInit {
+  lessons: Lesson[];
+  @ViewChild('input', {read: ElementRef}) input: ElementRef;
 
   constructor() { }
 
   ngOnInit() {
-    console.log('Top level component broadcast all lessions ...');
-    globalEventBus.notifyObservers(LESSIONS_LIST, lessions.slice());
+    this.lessons = lessons.slice();
+    globalEventBus.notifyObservers(LESSONS_LIST, this.lessons);
+
+    setTimeout(() => {
+      this.lessons.push({id: Math.random(), description: 'New lesson arriving from API'});
+      globalEventBus.notifyObservers(LESSONS_LIST, this.lessons);
+    }, 10000);
   }
 
-  addLession(e, title: string) {
-    console.log(title);
+  addLession(e, title: string): void {
+    globalEventBus.notifyObservers(ADD_LESSON, title);
+    this.input.nativeElement.value = '';
   }
 
 }

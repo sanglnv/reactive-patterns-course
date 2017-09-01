@@ -1,5 +1,5 @@
-import { Lession } from './lession';
-export const lessions: Lession[] = [
+import { Lesson } from './lesson';
+export const lessons: Lesson[] = [
   {
     id: 1,
     description: 'Setting up an Angular Development Environment',
@@ -7,7 +7,7 @@ export const lessions: Lession[] = [
   },
   {
     id: 2,
-    description: 'Running the lessions code',
+    description: 'Running the lessons code',
     duration: '7:00'
   },
   {

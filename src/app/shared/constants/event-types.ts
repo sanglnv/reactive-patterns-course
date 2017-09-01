@@ -1,2 +1,2 @@
-export const LESSIONS_LIST = 'LESSIONS_LIST';
-export const ADD_LESSION = 'ADD_LESSION';
+export const LESSONS_LIST = 'LESSONS_LIST';
+export const ADD_LESSON = 'ADD_LESSON';
