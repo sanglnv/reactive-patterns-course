@@ -1,25 +1,24 @@
-import { LESSONS_LIST } from './../shared/constants/event-types';
-import { globalEventBus } from 'app/event-bus-experiments/event-bus';
 import { Component, OnInit } from '@angular/core';
+import {Observer} from 'rxjs';
 import { Lesson } from 'app/shared/models/lesson';
+import { store } from 'app/event-bus-experiments/app-data';
 
 @Component({
   selector: 'app-lessons-counter',
   templateUrl: './lessons-counter.component.html',
   styleUrls: ['./lessons-counter.component.css']
 })
-export class LessonsCounterComponent implements OnInit {
+export class LessonsCounterComponent implements OnInit, Observer<Lesson[]> {
   lessonsCounter: number;
 
-  constructor() {
-    globalEventBus.registerObserver(LESSONS_LIST, this);
-  }
-
   ngOnInit() {
+    store.i$.subscribe(this);
   }
 
-  notify(lessons: Lesson[]): void {
-    this.lessonsCounter = lessons.length || 0;
-  }
+  next = (lessons: Lesson[]) => this.lessonsCounter = lessons.length || 0;
+
+  complete = () => console.log('complete');
+
+  error = error => console.error(error);
 
 }

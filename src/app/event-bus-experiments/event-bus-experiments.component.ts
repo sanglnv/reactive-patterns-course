@@ -1,11 +1,7 @@
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { store } from 'app/event-bus-experiments/app-data';
 import { Lesson } from './../shared/models/lesson';
 import { lessons } from './../shared/models/test-lessons';
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { globalEventBus } from 'app/event-bus-experiments/event-bus';
-import {
-  LESSONS_LIST,
-  ADD_LESSON
-} from '../shared/constants/event-types';
 
 @Component({
   selector: 'app-event-bus-experiments',
@@ -13,23 +9,30 @@ import {
   styleUrls: ['./event-bus-experiments.component.css']
 })
 export class EventBusExperimentsComponent implements OnInit {
-  lessons: Lesson[];
-  @ViewChild('input', {read: ElementRef}) input: ElementRef;
+  @ViewChild('input', { read: ElementRef }) input: ElementRef;
 
   constructor() { }
 
   ngOnInit() {
-    this.lessons = lessons.slice();
-    globalEventBus.notifyObservers(LESSONS_LIST, this.lessons);
-
+    store.initialize(lessons.slice());
     setTimeout(() => {
-      this.lessons.push({id: Math.random(), description: 'New lesson arriving from API'});
-      globalEventBus.notifyObservers(LESSONS_LIST, this.lessons);
+      const lesson: Lesson = {
+        id: Math.random(),
+        description: 'New lesson from API',
+        duration: '11:00'
+      };
+
+      store.add(lesson);
+
     }, 10000);
   }
 
   addLession(e, title: string): void {
-    globalEventBus.notifyObservers(ADD_LESSON, title);
+    const lesson: Lesson = {
+      id: Math.random(),
+      description: title
+    };
+    store.add(lesson);
     this.input.nativeElement.value = '';
   }
 
