@@ -1,0 +1,11 @@
+<div class="screen-container">
+
+  <h2>Stateless Observable Services</h2>
+
+  <app-course-list [courses]="courses$ | async"></app-course-list>
+
+  <h2>Latest Lessons Published</h2>
+
+  <app-lesson-list [lessons]="latestLessons$ | async"></app-lesson-list>
+
+</div>

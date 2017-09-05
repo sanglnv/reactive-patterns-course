@@ -17,7 +17,7 @@ export class EventBusExperimentsComponent implements OnInit {
     store.initialize(lessons.slice());
     setTimeout(() => {
       const lesson: Lesson = {
-        id: Math.random(),
+        id: Math.random().toString(),
         description: 'New lesson from API',
         duration: '11:00'
       };
@@ -29,7 +29,7 @@ export class EventBusExperimentsComponent implements OnInit {
 
   addLession(e, title: string): void {
     const lesson: Lesson = {
-      id: Math.random(),
+      id: Math.random().toString(),
       description: title
     };
     store.add(lesson);
