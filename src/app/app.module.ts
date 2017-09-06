@@ -18,6 +18,10 @@ import { routerConfig } from './router.config';
 import firebaseConfig from './../environments/firebase.config';
 import { CourseListComponent } from './course-list/course-list.component';
 import { LessonListComponent } from './lesson-list/lesson-list.component';
+import { CourseDetailHeaderComponent } from './course-detail-header/course-detail-header.component';
+import { LoginComponent } from './login/login.component';
+import { NewsletterComponent } from './newsletter/newsletter.component';
+import { TopMenuComponent } from './top-menu/top-menu.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +33,11 @@ import { LessonListComponent } from './lesson-list/lesson-list.component';
     HomeComponent,
     CourseDetailComponent,
     CourseListComponent,
-    LessonListComponent
+    LessonListComponent,
+    CourseDetailHeaderComponent,
+    LoginComponent,
+    NewsletterComponent,
+    TopMenuComponent
   ],
   imports: [
     BrowserModule,

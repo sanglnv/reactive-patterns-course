@@ -10,16 +10,41 @@ export class CourseService {
   constructor(private db: AngularFireDatabase) { }
 
   getAllCourses(): Observable<Course[]> {
-    return this.db.list('courses').do(console.log);
+    return this.db.list('courses')
+      .first()
+      .do(console.log);
   }
 
   getAllLessons(): Observable<Lesson[]> {
     return this.db.list('lessons', {
-        query: {
-            orderByKey: true,
-            limitToLast: 10
-        }
+      query: {
+        orderByKey: true,
+        limitToLast: 10
+      }
     })
+    .first()
     .do(console.log);
+  }
+
+  findCourseByUrl(courseUrl: string): Observable<Course> {
+    return this.db.list('courses', {
+      query: {
+        orderByChild: 'url',
+        equalTo: courseUrl
+      }
+    })
+      .first()
+      .map(data => data[0]);
+
+  }
+
+  findLessonsForCourse(courseId: string): Observable<Lesson[]> {
+    return this.db.list('lessons', {
+      query: {
+        orderByChild: 'courseId',
+        equalTo: courseId
+      }
+    })
+      .first();
   }
 }
