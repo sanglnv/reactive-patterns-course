@@ -1,3 +1,5 @@
+import { NewsletterService } from './services/newsletter.service';
+import { UserService } from './services/user.service';
 import { CourseService } from './services/course.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -48,7 +50,9 @@ import { TopMenuComponent } from './top-menu/top-menu.component';
     RouterModule.forRoot(routerConfig)
   ],
   providers: [
-    CourseService
+    CourseService,
+    UserService,
+    NewsletterService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,3 +1,4 @@
+import { UserService } from './../services/user.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Course } from '../shared/models/course';
@@ -8,7 +9,7 @@ import { NewsletterService } from '../services/newsletter.service';
 
 
 @Component({
-  selector: 'course-detail',
+  selector: 'app-course-detail',
   templateUrl: './course-detail.component.html',
   styleUrls: ['./course-detail.component.css']
 })
@@ -19,13 +20,13 @@ export class CourseDetailComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
     private courseService: CourseService,
-    private newsletterService: NewsletterService) {
-
+    private newsletterService: NewsletterService,
+    private userService: UserService
+  ) {
     route.params
       .subscribe(params => {
 
         const courseUrl = params['id'];
-
         this.courseService.findCourseByUrl(courseUrl)
           .subscribe(data => {
             this.course = data;
